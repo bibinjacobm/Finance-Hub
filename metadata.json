@@ -1,0 +1,6 @@
+{
+  "name": "FinanceHub v1.0",
+  "description": "Privacy-first executive financial command center with local-only persistence, interactive Chart.js analytics, cash flow ledger, budgets, wealth projections, and native-grade PWA capabilities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
