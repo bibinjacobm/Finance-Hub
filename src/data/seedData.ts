@@ -50,7 +50,7 @@ export function createSeedState(): FinanceState {
   const todayIso = new Date().toISOString();
 
   return {
-    version: '1.0.0',
+    version: '1.1.0',
     accounts: [
       {
         id: 'acc_checking',
@@ -358,7 +358,7 @@ export function createSeedState(): FinanceState {
     history: buildMonthlyHistory(),
     settings: {
       theme: 'dark',
-      currency: 'USD',
+      currency: 'INR',
       privacyMode: false,
       monthlyIncomeTarget: 28000,
     },

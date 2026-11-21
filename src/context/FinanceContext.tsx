@@ -25,14 +25,19 @@ function loadInitialState(): FinanceState {
       parsed.settings
     ) {
       const seed = createSeedState();
+      const migratedSettings = { ...seed.settings, ...parsed.settings };
+      // Seamlessly adopt new INR default for prior 1.0.0 seed states
+      if (parsed.version === '1.0.0' && parsed.settings.currency === 'USD') {
+        migratedSettings.currency = 'INR';
+      }
       return {
-        version: parsed.version || '1.0.0',
+        version: '1.1.0',
         accounts: parsed.accounts,
         transactions: parsed.transactions,
         budgets: parsed.budgets,
         goals: parsed.goals,
         history: Array.isArray(parsed.history) && parsed.history.length > 0 ? parsed.history : seed.history,
-        settings: { ...seed.settings, ...parsed.settings },
+        settings: migratedSettings,
       };
     }
   } catch {

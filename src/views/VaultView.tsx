@@ -77,7 +77,7 @@ export const VaultView: React.FC = () => {
               Local-First Privacy Architecture
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
-              FinanceHub v1.0 operates strictly inside your browser. Zero cloud databases, zero third-party
+              FinanceHub operates strictly inside your browser. Zero cloud databases, zero third-party
               telemetry, and zero external API calls. All ledger records, accounts, and budgets remain exclusively
               in your device&apos;s LocalStorage vault.
             </p>

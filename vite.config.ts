@@ -15,7 +15,7 @@ export default defineConfig(() => {
         includeAssets: ['icon.svg', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png', 'pwa-maskable-512x512.png'],
         manifest: {
           id: '/',
-          name: 'FinanceHub v1.0',
+          name: 'FinanceHub',
           short_name: 'FinanceHub',
           description: 'Privacy-first executive financial command center with local-only persistence and offline analytics.',
           theme_color: '#090C10',

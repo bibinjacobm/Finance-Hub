@@ -10,12 +10,12 @@ const CURRENCY_CONFIG: Record<CurrencyCode, { locale: string; symbol: string; de
 };
 
 export const CURRENCY_OPTIONS: { code: CurrencyCode; label: string }[] = [
+  { code: 'INR', label: 'INR (₹) — Indian Rupee' },
   { code: 'USD', label: 'USD ($) — US Dollar' },
   { code: 'EUR', label: 'EUR (€) — Euro' },
   { code: 'GBP', label: 'GBP (£) — British Pound' },
   { code: 'CHF', label: 'CHF — Swiss Franc' },
   { code: 'JPY', label: 'JPY (¥) — Japanese Yen' },
-  { code: 'INR', label: 'INR (₹) — Indian Rupee' },
 ];
 
 export const EXPENSE_CATEGORIES: CategoryName[] = [
@@ -42,23 +42,35 @@ export const ALL_CATEGORIES: CategoryName[] = [
 
 export function formatCurrency(
   value: number,
-  currency: CurrencyCode = 'USD',
+  currency: CurrencyCode = 'INR',
   options?: { compact?: boolean; signed?: boolean; masked?: boolean; whole?: boolean }
 ): string {
   if (options?.masked) {
-    const sym = CURRENCY_CONFIG[currency]?.symbol ?? '$';
+    const sym = CURRENCY_CONFIG[currency]?.symbol ?? '₹';
     return `${sym}••••••`;
   }
 
-  const cfg = CURRENCY_CONFIG[currency] ?? CURRENCY_CONFIG.USD;
+  const cfg = CURRENCY_CONFIG[currency] ?? CURRENCY_CONFIG.INR;
   const abs = Math.abs(value);
   const sign = value < 0 ? '-' : options?.signed && value > 0 ? '+' : '';
 
-  if (options?.compact && abs >= 1_000_000) {
-    return `${sign}${cfg.symbol}${(abs / 1_000_000).toFixed(2)}M`;
-  }
-  if (options?.compact && abs >= 10_000) {
-    return `${sign}${cfg.symbol}${(abs / 1_000).toFixed(1)}k`;
+  if (options?.compact && currency === 'INR') {
+    if (abs >= 10_000_000) {
+      return `${sign}${cfg.symbol}${(abs / 10_000_000).toFixed(2)}Cr`;
+    }
+    if (abs >= 100_000) {
+      return `${sign}${cfg.symbol}${(abs / 100_000).toFixed(2)}L`;
+    }
+    if (abs >= 10_000) {
+      return `${sign}${cfg.symbol}${(abs / 1_000).toFixed(1)}k`;
+    }
+  } else {
+    if (options?.compact && abs >= 1_000_000) {
+      return `${sign}${cfg.symbol}${(abs / 1_000_000).toFixed(2)}M`;
+    }
+    if (options?.compact && abs >= 10_000) {
+      return `${sign}${cfg.symbol}${(abs / 1_000).toFixed(1)}k`;
+    }
   }
 
   const maxFractionDigits = options?.whole ? 0 : cfg.decimals;
